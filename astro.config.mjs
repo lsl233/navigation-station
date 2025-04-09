@@ -3,17 +3,22 @@ import sitemap from '@astrojs/sitemap';
 import { defineConfig } from 'astro/config';
 import { DEFAULT_LOCALE_SETTING, LOCALES_SETTING } from './src/locales';
 
+import tailwindcss from '@tailwindcss/vite';
+
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://astro-i18n-starter.pages.dev', // Set your site's URL
+  // Set your site's URL
+  site: 'https://astro-i18n-starter.pages.dev',
+
   i18n: {
     defaultLocale: DEFAULT_LOCALE_SETTING,
     locales: Object.keys(LOCALES_SETTING),
     routing: {
-      prefixDefaultLocale: true,
+      prefixDefaultLocale: false,
       redirectToDefaultLocale: false,
     },
   },
+
   integrations: [
     mdx(),
     sitemap({
@@ -27,4 +32,8 @@ export default defineConfig({
       },
     })
   ],
+
+  vite: {
+    plugins: [tailwindcss()],
+  },
 });

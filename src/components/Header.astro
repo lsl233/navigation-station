@@ -19,14 +19,14 @@ const isActive = (path: string) =>
   <h1 dir="ltr">
     <a href={getRelativeLocaleUrl(locale, "/")}>
       <Image src={AstroImage} alt="Astro" />
-      i18n Starter
+      {t({ en: "Youtube 2 MP3 Converters" })}
     </a>
   </h1>
 
   <LocaleSelect />
 
   <nav class="l-content">
-    <ul>
+    <!-- <ul>
       <li>
         <a
           href={getRelativeLocaleUrl(locale, "/setup")}
@@ -95,7 +95,7 @@ const isActive = (path: string) =>
           <span class="material-icons-sharp dir">open_in_new</span>
         </a>
       </li>
-    </ul>
+    </ul> -->
   </nav>
 </header>
 

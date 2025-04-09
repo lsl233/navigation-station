@@ -1,0 +1,101 @@
+---
+import { LOCALES, useTranslations, type Lang } from "@/i18n";
+import Layout from "@/layouts/Base.astro";
+const t = useTranslations(Astro.currentLocale as Lang);
+
+const tableHeader = [
+  {
+    text: t({ en: "Product Name", zh: "产品名称" }),
+    key: "name",
+    class: "text-left"
+  },
+  {
+    text: t({ en: "Ads", zh: "是否有广告" }),
+    key: "ad",
+    class: "text-center"
+  },
+  {
+    text: t({ en: "Free", zh: "是否免费" }),
+    key: "free",
+    class: "text-center"
+  },
+  {
+    text: t({ en: "Quality", zh: "音质" }),
+    key: "quality",
+    class: "text-left"
+  },
+  {
+    text: t({ en: "Usable", zh: "是否可用" }),
+    key: "usable",
+    class: "text-center"
+  },
+]
+
+const productName = (name: string, url: string) => `<a href="${url}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">${name}</a>`
+const products = [
+  {
+    name: productName("youtubemp3", "https://youtubemp3.one/"),
+    ad: true,
+    free: true,
+    quality: ['320kbps'],
+    usable: false,
+  },
+];
+---
+
+<Layout>
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-2xl font-bold mb-6 text-center">{t({ en: "Products Comparison", zh: "产品比较" })}</h1>
+    
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg max-h-[600px]">
+      <table class="w-full text-sm text-left rtl:text-right">
+        <thead class="text-xs uppercase bg-gray-700 text-white sticky top-0">
+          <tr>
+            {tableHeader.map((header) => (
+              <th scope="col" class={`px-6 py-3 whitespace-nowrap ${header.class}`}>
+                {header.text}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {products.map((product) => (
+            <tr class="bg-white border-b hover:bg-gray-100">
+              <td class="px-6 py-4 font-medium whitespace-nowrap">
+                <Fragment set:html={product.name} />
+              </td>
+              <td class="px-6 py-4 text-center">
+                {product.ad ? 
+                  <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded">{t({ en: "Yes", zh: "是" })}</span> : 
+                  <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">{t({ en: "No", zh: "否" })}</span>
+                }
+              </td>
+              <td class="px-6 py-4 text-center">
+                {product.free ? 
+                  <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">{t({ en: "Yes", zh: "是" })}</span> : 
+                  <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded">{t({ en: "No", zh: "否" })}</span>
+                }
+              </td>
+              <td class="px-6 py-4">
+                <div class="flex flex-wrap gap-1">
+                  {product.quality.map((q) => (
+                    <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">{q}</span>
+                  ))}
+                </div>
+              </td>
+              <td class="px-6 py-4 text-center">
+                {product.usable ? 
+                  <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">{t({ en: "Yes", zh: "是" })}</span> : 
+                  <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded">{t({ en: "No", zh: "否" })}</span>
+                }
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</Layout>
+
+<style>
+</style>

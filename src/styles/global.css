@@ -1,3 +1,24 @@
-@import "reset";
-@import "base";
-@import "layout";
+@import "tailwindcss";
+
+:root {
+  @media (prefers-color-scheme: dark) {
+    --color-theme: #ef4d1a;
+    --color-accent: #943e0d;
+    --color-base: #342c28;
+    --color-main: #faf9f6;
+    --color-caution: #ffaa2b;
+  }
+}
+
+:root {
+  --english-font: "Noto Sans", "Robot", "Avenir Next", "Avenir", "Century Gothic", "SF Pro Text", "Arial", -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--color-main);
+  background-color: var(--color-base);
+  /* accent-color: var(--color-theme); */
+  background-image: radial-gradient(color-mix(in srgb, var(--color-main) 10%, transparent) 1px, var(--color-base) 1px);
+  background-size: 16px 16px;
+  line-height: 1.6;
+  font-weight: 500;
+  font-size: 18px;
+  font-family: Noto Sans, system-ui, SF Pro Text, -apple-system, BlinkMacSystemFont, sans-serif;
+}
