@@ -26,10 +26,16 @@ const tableColumns: TableColumn[] = [
     class: "text-center",
   },
   {
+    text: t({ en: "Client", "zh-cn": "客户端" }),
+    key: "client",
+    class: "text-center",
+  },
+  {
     text: t({ en: "Quality", "zh-cn": "音质" }),
     key: "quality",
     class: "text-left",
   },
+
   {
     text: t({ en: "Usable", "zh-cn": "是否可用" }),
     key: "usable",
@@ -38,7 +44,7 @@ const tableColumns: TableColumn[] = [
 ];
 
 const productName = (name: string, url: string) =>
-  `<a href="${url}" title="${name}\n${url}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">${name}</a>`;
+  `<a href="${url}" title="${name}\n${url}" target="_blank" rel="noopener noreferrer" class="text-blue-500 dark:text-blue-300 hover:underline">${name}</a>`;
 
 const boolText = (value: boolean, options = { reverse: false }) => {
   const isPositive = options.reverse ? !value : value;
@@ -59,7 +65,25 @@ const arrayText = (value: string[]) => {
     .join(" ");
 };
 
+// TODO: 步骤
 const products = [
+  {
+    name: {
+      value: productName("4kdownload", "https://www.4kdownload.com/products/youtubetomp3-72"),
+      class: "text-left",
+    },
+    ad: {
+      value: boolText(false, { reverse: true }),
+    },
+    client: {
+      value: boolText(true, { reverse: true }),
+    },
+    free: { value: boolText(true) },
+    quality: {
+      value: arrayText(["64kbit"]),
+    },
+    usable: { value: boolText(true) },
+  },
   {
     name: {
       value: productName("yt8s", "https://yt8s.com/en"),
@@ -173,13 +197,13 @@ const products = [
       class: "text-left",
     },
     ad: {
-      value: boolText(false, { reverse: true }),
+      value: boolText(true, { reverse: true }),
     },
     free: { value: boolText(true) },
     quality: {
       value: arrayText(["128kbit"]),
     },
-    usable: { value: boolText(false) },
+    usable: { value: boolText(true) },
   },
   {
     name: {
@@ -246,7 +270,7 @@ const products = [
 ];
 ---
 
-<Layout>
+<Layout title="Quickly Find Good YouTube to MP3 Converters" description="Say goodbye to bad YouTube to MP3 tools! Our website has simple reviews and comparison tables to help you quickly find tools that work, have no ads, and have good sound quality, saving you time.">
   <div class="container mx-auto px-4">
     <div class="w-full max-w-2xl mx-auto my-6">
       <h1 class="text-3xl font-bold mb-6 text-center">
@@ -267,15 +291,15 @@ const products = [
 
       <h2 class="text-xl font-bold my-3">Don't worry!</h2>
       <p>
-        Our website is here to help. We have collected over <b class="font-bold text-theme text-xl">{ products.length }</b> websites
-        that offer YouTube to MP3 conversion. We give you simple and
-        easy-to-understand reviews of these tools. We have carefully checked and
-        tried out many of them, and we show you the important things about them
-        quickly in an easy-to-read table. This table tells you if the tool has
-        ads, if it works, if it's free, and about how good the sound quality is.
-        With so many options in one place, you don't need to read long reviews.
-        You can easily see the good and bad points of different tools and
-        quickly find the best one for what you need!
+        Our website is here to help. We have collected over <b
+          class="font-bold text-theme text-xl">{products.length}</b
+        > websites that offer YouTube to MP3 conversion. We give you simple and easy-to-understand
+        reviews of these tools. We have carefully checked and tried out many of them,
+        and we show you the important things about them quickly in an easy-to-read
+        table. This table tells you if the tool has ads, if it works, if it's free,
+        and about how good the sound quality is. With so many options in one place,
+        you don't need to read long reviews. You can easily see the good and bad
+        points of different tools and quickly find the best one for what you need!
       </p>
     </div>
 
@@ -298,10 +322,13 @@ const products = [
         <tbody>
           {
             products.map((product) => (
-              <tr class=" border-b border-gray-200 hover:bg-gray-100">
+              <tr class="border-b border-gray-200 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-700">
                 {tableColumns.map((column) => (
                   <td class={`px-6 py-4 ${column.class}`}>
-                    <Fragment set:html={product[column.key].value} />
+                    {
+                      product[column.key] ? <Fragment set:html={product[column.key]?.value} /> : '-'
+                    }
+                    
                   </td>
                 ))}
                 {/* <td class="px-6 py-4 font-medium whitespace-nowrap">
