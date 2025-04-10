@@ -95,8 +95,8 @@ const localeDescription = description || t(SITE_DESCRIPTION);
 
     { import.meta.env.DEV && <style>:root { scroll-behavior: auto }</style> }
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2VBEF9L42W"></script>
-    <script>
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-2VBEF9L42W"></script>
+    <script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());

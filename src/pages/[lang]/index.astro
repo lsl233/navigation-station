@@ -1,6 +1,6 @@
 ---
 import LangPage from "@/components/langPage/index.astro";
-import { type Lang, LOCALES } from "@/i18n";
+import { LOCALES } from "@/i18n";
 
 export const getStaticPaths = () =>
   Object.keys(LOCALES).map((lang) => ({
