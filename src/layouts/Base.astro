@@ -35,15 +35,7 @@ const localeDescription = description || t(SITE_DESCRIPTION);
 -->
 <html lang={LOCALES[locale].lang || locale} dir={LOCALES[locale].dir || null}>
   <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2VBEF9L42W"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-2VBEF9L42W');
-    </script>
+    
     <meta charset="UTF-8" />
     <title>{localeTitle}</title>
     <meta name="description" content={localeDescription} />
@@ -102,5 +94,14 @@ const localeDescription = description || t(SITE_DESCRIPTION);
     <!-- <Footer /> -->
 
     { import.meta.env.DEV && <style>:root { scroll-behavior: auto }</style> }
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2VBEF9L42W"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-2VBEF9L42W');
+    </script>
   </body>
 </html>
