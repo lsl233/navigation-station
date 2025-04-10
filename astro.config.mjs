@@ -8,13 +8,13 @@ import tailwindcss from '@tailwindcss/vite';
 // https://astro.build/config
 export default defineConfig({
   // Set your site's URL
-  site: 'https://astro-i18n-starter.pages.dev',
+  site: 'https://toolharbor.top',
 
   i18n: {
     defaultLocale: DEFAULT_LOCALE_SETTING,
     locales: Object.keys(LOCALES_SETTING),
     routing: {
-      prefixDefaultLocale: false,
+      prefixDefaultLocale: true,
       redirectToDefaultLocale: false,
     },
   },
