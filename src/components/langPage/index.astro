@@ -247,10 +247,36 @@ const products = [
 ---
 
 <Layout>
-  <div class="container mx-auto px-4 py-8">
-    <h1 class="text-2xl font-bold mb-6 text-center">
-      {t({ en: "Products Comparison", "zh-cn": "产品比较" })}
-    </h1>
+  <div class="container mx-auto px-4">
+    <div class="w-full max-w-2xl mx-auto my-6">
+      <h1 class="text-3xl font-bold mb-6 text-center">
+        Youtube to MP3 Converter<span class="text-theme">s</span>
+      </h1>
+      <h2 class="text-xl font-bold my-3">Do you often feel annoyed because:</h2>
+      <p>
+        You want to save your favorite music, podcasts, or talks from YouTube as
+        MP3s to listen to whenever you want, but it's hard to find a converter
+        tool that really works well?
+      </p>
+
+      <p>
+        Online converter websites either have too many ads that make it annoying
+        to use, or the information isn't clear, so you don't know which tool is
+        better?
+      </p>
+
+      <h2 class="text-xl font-bold my-3">Don't worry!</h2>
+      <p>
+        Our website is here to help. We give you simple and easy-to-understand
+        reviews of YouTube to MP3 converter tools. We have carefully checked and
+        tried out many tools, and we show you the important things about them
+        quickly in an easy-to-read table. This table tells you if the tool has
+        ads, if it works, if it's free, and about how good the sound quality is.
+        Here, you don't need to read long reviews. You can easily see the good
+        and bad points of different tools and quickly find the best one for what
+        you need!
+      </p>
+    </div>
 
     <div class="relative overflow-x-auto shadow-sm sm:rounded-lg">
       <table class="w-full text-sm text-left rtl:text-right">
@@ -271,7 +297,7 @@ const products = [
         <tbody>
           {
             products.map((product) => (
-              <tr class="bg-white border-b border-gray-200 hover:bg-gray-100">
+              <tr class=" border-b border-gray-200 hover:bg-gray-100">
                 {tableColumns.map((column) => (
                   <td class={`px-6 py-4 ${column.class}`}>
                     <Fragment set:html={product[column.key].value} />

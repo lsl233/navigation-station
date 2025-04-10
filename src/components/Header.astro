@@ -15,17 +15,17 @@ const isActive = (path: string) =>
   getRelativeLocaleUrl(locale, path) === Astro.url.pathname;
 ---
 
-<header class="l-header">
-  <h1 dir="ltr">
-    <a href={getRelativeLocaleUrl(locale, "/")}>
-      <Image src={AstroImage} alt="Astro" />
-      {t({ en: "Youtube 2 MP3 Converters" })}
+<header>
+  <div class="my-6 bg-amber-500 px-6 py-4 rounded-lg" dir="ltr">
+    <a class="flex items-center gap-2" href={getRelativeLocaleUrl(locale, "/")}>
+      <!-- <Image height={80} src={AstroImage} alt="Astro" /> -->
+      <span class="text-4xl font-bold text-white">{t({ en: "toolharbor.top" })}</span>
     </a>
-  </h1>
+  </div>
 
-  <LocaleSelect />
+  <!-- <LocaleSelect /> -->
 
-  <nav class="l-content">
+  <!-- <nav class="l-content"> -->
     <!-- <ul>
       <li>
         <a
@@ -96,7 +96,7 @@ const isActive = (path: string) =>
         </a>
       </li>
     </ul> -->
-  </nav>
+  <!-- </nav> -->
 </header>
 
 <style>
