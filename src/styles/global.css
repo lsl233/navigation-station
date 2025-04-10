@@ -11,6 +11,16 @@
 }
 
 :root {
+  @media (prefers-color-scheme: light) {
+      --color-theme: #ef4d1a;
+      --color-accent: #ffcc21;
+      --color-base: #faf9f6;
+      --color-main: #342c28;
+      --color-caution: #a80a00;
+  }
+}
+
+:root {
   --english-font: "Noto Sans", "Robot", "Avenir Next", "Avenir", "Century Gothic", "SF Pro Text", "Arial", -apple-system, BlinkMacSystemFont, sans-serif;
   color: var(--color-main);
   background-color: var(--color-base);

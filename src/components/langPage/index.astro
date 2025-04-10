@@ -3,99 +3,332 @@ import { LOCALES, useTranslations, type Lang } from "@/i18n";
 import Layout from "@/layouts/Base.astro";
 const t = useTranslations(Astro.currentLocale as Lang);
 
-const tableHeader = [
-  {
-    text: t({ en: "Product Name", zh: "产品名称" }),
-    key: "name",
-    class: "text-left"
-  },
-  {
-    text: t({ en: "Ads", zh: "是否有广告" }),
-    key: "ad",
-    class: "text-center"
-  },
-  {
-    text: t({ en: "Free", zh: "是否免费" }),
-    key: "free",
-    class: "text-center"
-  },
-  {
-    text: t({ en: "Quality", zh: "音质" }),
-    key: "quality",
-    class: "text-left"
-  },
-  {
-    text: t({ en: "Usable", zh: "是否可用" }),
-    key: "usable",
-    class: "text-center"
-  },
-]
+type TableColumn = {
+  text: string;
+  key: keyof (typeof products)[number];
+  class: string;
+};
 
-const productName = (name: string, url: string) => `<a href="${url}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">${name}</a>`
+const tableColumns: TableColumn[] = [
+  {
+    text: t({ en: "Product Name", "zh-cn": "产品名称" }),
+    key: "name",
+    class: "text-left",
+  },
+  {
+    text: t({ en: "Ads", "zh-cn": "是否有广告" }),
+    key: "ad",
+    class: "text-center",
+  },
+  {
+    text: t({ en: "Free", "zh-cn": "是否免费" }),
+    key: "free",
+    class: "text-center",
+  },
+  {
+    text: t({ en: "Quality", "zh-cn": "音质" }),
+    key: "quality",
+    class: "text-left",
+  },
+  {
+    text: t({ en: "Usable", "zh-cn": "是否可用" }),
+    key: "usable",
+    class: "text-center",
+  },
+];
+
+const productName = (name: string, url: string) =>
+  `<a href="${url}" title="${name}\n${url}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">${name}</a>`;
+
+const boolText = (value: boolean, options = { reverse: false }) => {
+  const isPositive = options.reverse ? !value : value;
+  const textColor = isPositive ? "text-green-800" : "text-red-800";
+  const bgColor = isPositive ? "bg-green-100" : "bg-red-100";
+
+  return value
+    ? `<span class="${bgColor} ${textColor} text-xs font-medium px-2.5 py-0.5 rounded">${t({ en: "Yes", "zh-cn": "是" })}</span>`
+    : `<span class="${bgColor} ${textColor} text-xs font-medium px-2.5 py-0.5 rounded">${t({ en: "No", "zh-cn": "否" })}</span>`;
+};
+
+const arrayText = (value: string[]) => {
+  return value
+    .map(
+      (v) =>
+        `<span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">${v}</span>`
+    )
+    .join(" ");
+};
+
 const products = [
   {
-    name: productName("youtubemp3", "https://youtubemp3.one/"),
-    ad: true,
-    free: true,
-    quality: ['320kbps'],
-    usable: false,
+    name: {
+      value: productName("yt8s", "https://yt8s.com/en"),
+      class: "text-left",
+    },
+    ad: {
+      value: boolText(false, { reverse: true }),
+    },
+    free: { value: boolText(true) },
+    quality: {
+      value: arrayText(["64kbit"]),
+    },
+    usable: { value: boolText(true) },
+  },
+  {
+    name: {
+      value: productName(
+        "macelleriamantelli",
+        "https://app.aiseo.ai/tools/youtube-to-mp3"
+      ),
+      class: "text-left",
+    },
+    ad: {
+      value: boolText(false, { reverse: true }),
+    },
+    free: { value: boolText(true) },
+    quality: {
+      value: arrayText(["64kbit", "128kbit", "256kbit", "320kbit"]),
+    },
+    usable: { value: boolText(true) },
+  },
+  {
+    name: {
+      value: productName(
+        "macelleriamantelli",
+        "https://www.macelleriamantelli.it/"
+      ),
+      class: "text-left",
+    },
+    ad: {
+      value: boolText(true, { reverse: true }),
+    },
+    free: { value: boolText(true) },
+    quality: {
+      value: arrayText(["64kbit", "128kbit", "256kbit", "320kbit"]),
+    },
+    usable: { value: boolText(true) },
+  },
+  {
+    name: {
+      value: productName("yt1d", "https://yt1d.com/en20/youtube-to-mp3"),
+      class: "text-left",
+    },
+    ad: {
+      value: boolText(true, { reverse: true }),
+    },
+    free: { value: boolText(true) },
+    quality: {
+      value: arrayText(["64kbit"]),
+    },
+    usable: { value: boolText(true) },
+  },
+  {
+    name: {
+      value: productName("villamadame", "https://www.villamadame.it/"),
+      class: "text-left",
+    },
+    ad: {
+      value: boolText(true, { reverse: true }),
+    },
+    free: { value: boolText(true) },
+    quality: {
+      value: arrayText(["64kbit", "128kbit", "256kbit", "320kbit"]),
+    },
+    usable: { value: boolText(true) },
+  },
+  {
+    name: {
+      value: productName(
+        "clipto",
+        "https://www.clipto.com/media-downloader/free-youtube-to-mp3-converter"
+      ),
+      class: "text-left",
+    },
+    ad: {
+      value: boolText(false, { reverse: true }),
+    },
+    free: { value: boolText(true) },
+    quality: {
+      value: arrayText(["m4a", "opus", "mp3"]),
+    },
+    usable: { value: boolText(true) },
+  },
+  {
+    name: {
+      value: productName("cnvmp3", "https://cnvmp3.com/v23"),
+      class: "text-left",
+    },
+    ad: {
+      value: boolText(false, { reverse: true }),
+    },
+    free: { value: boolText(true) },
+    quality: {
+      value: arrayText(["64kbit", "128kbit", "256kbit", "320kbit"]),
+    },
+    usable: { value: boolText(true) },
+  },
+  {
+    name: {
+      value: productName("ytmp3", "https://ytmp3.cc/Nnht/"),
+      class: "text-left",
+    },
+    ad: {
+      value: boolText(false, { reverse: true }),
+    },
+    free: { value: boolText(true) },
+    quality: {
+      value: arrayText(["128kbit"]),
+    },
+    usable: { value: boolText(false) },
+  },
+  {
+    name: {
+      value: productName("y2mate", "https://y2mate.nu/en-c3pn/"),
+      class: "text-left",
+    },
+    ad: {
+      value: boolText(false, { reverse: true }),
+    },
+    free: { value: boolText(true) },
+    quality: {
+      value: arrayText(["128kbit"]),
+    },
+    usable: { value: boolText(false) },
+  },
+
+  {
+    name: {
+      value: productName("y2mate", "https://www.y2mate.com/en949"),
+    },
+    ad: {
+      value: boolText(true, { reverse: true }),
+    },
+    free: { value: boolText(true) },
+    quality: {
+      value: arrayText(["128kbit"]),
+    },
+    usable: { value: boolText(false) },
+  },
+  {
+    name: {
+      value: productName("yout", "https://yout.com/"),
+      class: "text-left",
+    },
+    ad: {
+      value: boolText(false, { reverse: true }),
+    },
+    free: { value: boolText(true) },
+    quality: {
+      value: arrayText([
+        "32kbit",
+        "64kbit",
+        "128kbit",
+        "192kbit",
+        "256kbit",
+        "320kbit",
+      ]),
+    },
+    usable: { value: boolText(true) },
+  },
+  {
+    name: {
+      value: productName("youtubemp3", "https://youtubemp3.one/"),
+    },
+    ad: {
+      value: boolText(true, { reverse: true }),
+    },
+    free: { value: boolText(true) },
+    quality: {
+      value: arrayText(["32kbit"]),
+    },
+    usable: { value: boolText(false) },
   },
 ];
 ---
 
 <Layout>
   <div class="container mx-auto px-4 py-8">
-    <h1 class="text-2xl font-bold mb-6 text-center">{t({ en: "Products Comparison", zh: "产品比较" })}</h1>
-    
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg max-h-[600px]">
+    <h1 class="text-2xl font-bold mb-6 text-center">
+      {t({ en: "Products Comparison", "zh-cn": "产品比较" })}
+    </h1>
+
+    <div class="relative overflow-x-auto shadow-sm sm:rounded-lg">
       <table class="w-full text-sm text-left rtl:text-right">
         <thead class="text-xs uppercase bg-gray-700 text-white sticky top-0">
           <tr>
-            {tableHeader.map((header) => (
-              <th scope="col" class={`px-6 py-3 whitespace-nowrap ${header.class}`}>
-                {header.text}
-              </th>
-            ))}
+            {
+              tableColumns.map((column) => (
+                <th
+                  scope="col"
+                  class={`px-6 py-3 whitespace-nowrap ${column.class}`}
+                >
+                  {column.text}
+                </th>
+              ))
+            }
           </tr>
         </thead>
         <tbody>
-          {products.map((product) => (
-            <tr class="bg-white border-b hover:bg-gray-100">
-              <td class="px-6 py-4 font-medium whitespace-nowrap">
-                <Fragment set:html={product.name} />
-              </td>
-              <td class="px-6 py-4 text-center">
-                {product.ad ? 
-                  <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded">{t({ en: "Yes", zh: "是" })}</span> : 
-                  <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">{t({ en: "No", zh: "否" })}</span>
-                }
-              </td>
-              <td class="px-6 py-4 text-center">
-                {product.free ? 
-                  <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">{t({ en: "Yes", zh: "是" })}</span> : 
-                  <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded">{t({ en: "No", zh: "否" })}</span>
-                }
-              </td>
-              <td class="px-6 py-4">
-                <div class="flex flex-wrap gap-1">
-                  {product.quality.map((q) => (
-                    <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">{q}</span>
-                  ))}
-                </div>
-              </td>
-              <td class="px-6 py-4 text-center">
-                {product.usable ? 
-                  <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">{t({ en: "Yes", zh: "是" })}</span> : 
-                  <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded">{t({ en: "No", zh: "否" })}</span>
-                }
-              </td>
-            </tr>
-          ))}
+          {
+            products.map((product) => (
+              <tr class="bg-white border-b border-gray-200 hover:bg-gray-100">
+                {tableColumns.map((column) => (
+                  <td class={`px-6 py-4 ${column.class}`}>
+                    <Fragment set:html={product[column.key].value} />
+                  </td>
+                ))}
+                {/* <td class="px-6 py-4 font-medium whitespace-nowrap">
+                  <Fragment set:html={product.name} />
+                </td>
+                <td class="px-6 py-4 text-center">
+                  {product.ad.value ? (
+                    <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded">
+                      {t({ en: "Yes", 'zh-cn': "是" })}
+                    </span>
+                  ) : (
+                    <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">
+                      {t({ en: "No", 'zh-cn': "否" })}
+                    </span>
+                  )}
+                </td>
+                <td class="px-6 py-4 text-center">
+                  {product.free.value ? (
+                    <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">
+                      {t({ en: "Yes", 'zh-cn': "是" })}
+                    </span>
+                  ) : (
+                    <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded">
+                      {t({ en: "No", 'zh-cn': "否" })}
+                    </span>
+                  )}
+                </td>
+                <td class="px-6 py-4">
+                  <div class="flex flex-wrap gap-1">
+                    {product.quality.value.map((q) => (
+                      <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">
+                        {q}
+                      </span>
+                    ))}
+                  </div>
+                </td>
+                <td class="px-6 py-4 text-center">
+                  {product.usable.value ? (
+                    <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">
+                      {t({ en: "Yes", 'zh-cn': "是" })}
+                    </span>
+                  ) : (
+                    <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded">
+                      {t({ en: "No", 'zh-cn': "否" })}
+                    </span>
+                  )}
+                </td> */}
+              </tr>
+            ))
+          }
         </tbody>
       </table>
     </div>
   </div>
 </Layout>
 
-<style>
-</style>
+<style></style>
