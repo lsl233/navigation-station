@@ -1,276 +1,19 @@
 ---
 import { LOCALES, useTranslations, type Lang } from "@/i18n";
 import Layout from "@/layouts/Base.astro";
+import { getTableColumns, getProducts } from "@/data/youtube-mp3-converters";
+
 const t = useTranslations(Astro.currentLocale as Lang);
 
-type TableColumn = {
-  text: string;
-  key: keyof (typeof products)[number];
-  class: string;
-};
-
-const tableColumns: TableColumn[] = [
-  {
-    text: t({ en: "Product Name", "zh-cn": "产品名称" }),
-    key: "name",
-    class: "text-left",
-  },
-  {
-    text: t({ en: "Ads", "zh-cn": "是否有广告" }),
-    key: "ad",
-    class: "text-center",
-  },
-  {
-    text: t({ en: "Free", "zh-cn": "是否免费" }),
-    key: "free",
-    class: "text-center",
-  },
-  {
-    text: t({ en: "Client", "zh-cn": "客户端" }),
-    key: "client",
-    class: "text-center",
-  },
-  {
-    text: t({ en: "Quality", "zh-cn": "音质" }),
-    key: "quality",
-    class: "text-left",
-  },
-
-  {
-    text: t({ en: "Usable", "zh-cn": "是否可用" }),
-    key: "usable",
-    class: "text-center",
-  },
-];
-
-const productName = (name: string, url: string) =>
-  `<a href="${url}" title="${name}\n${url}" target="_blank" rel="noopener noreferrer" class="text-blue-500 dark:text-blue-300 hover:underline">${name}</a>`;
-
-const boolText = (value: boolean, options = { reverse: false }) => {
-  const isPositive = options.reverse ? !value : value;
-  const textColor = isPositive ? "text-green-800" : "text-red-800";
-  const bgColor = isPositive ? "bg-green-100" : "bg-red-100";
-
-  return value
-    ? `<span class="${bgColor} ${textColor} text-xs font-medium px-2.5 py-0.5 rounded">${t({ en: "Yes", "zh-cn": "是" })}</span>`
-    : `<span class="${bgColor} ${textColor} text-xs font-medium px-2.5 py-0.5 rounded">${t({ en: "No", "zh-cn": "否" })}</span>`;
-};
-
-const arrayText = (value: string[]) => {
-  return value
-    .map(
-      (v) =>
-        `<span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">${v}</span>`
-    )
-    .join(" ");
-};
-
-// TODO: 步骤
-const products = [
-  {
-    name: {
-      value: productName("4kdownload", "https://www.4kdownload.com/products/youtubetomp3-72"),
-      class: "text-left",
-    },
-    ad: {
-      value: boolText(false, { reverse: true }),
-    },
-    client: {
-      value: boolText(true, { reverse: true }),
-    },
-    free: { value: boolText(true) },
-    quality: {
-      value: arrayText(["64kbit"]),
-    },
-    usable: { value: boolText(true) },
-  },
-  {
-    name: {
-      value: productName("yt8s", "https://yt8s.com/en"),
-      class: "text-left",
-    },
-    ad: {
-      value: boolText(false, { reverse: true }),
-    },
-    free: { value: boolText(true) },
-    quality: {
-      value: arrayText(["64kbit"]),
-    },
-    usable: { value: boolText(true) },
-  },
-  {
-    name: {
-      value: productName(
-        "macelleriamantelli",
-        "https://app.aiseo.ai/tools/youtube-to-mp3"
-      ),
-      class: "text-left",
-    },
-    ad: {
-      value: boolText(false, { reverse: true }),
-    },
-    free: { value: boolText(true) },
-    quality: {
-      value: arrayText(["64kbit", "128kbit", "256kbit", "320kbit"]),
-    },
-    usable: { value: boolText(true) },
-  },
-  {
-    name: {
-      value: productName(
-        "macelleriamantelli",
-        "https://www.macelleriamantelli.it/"
-      ),
-      class: "text-left",
-    },
-    ad: {
-      value: boolText(true, { reverse: true }),
-    },
-    free: { value: boolText(true) },
-    quality: {
-      value: arrayText(["64kbit", "128kbit", "256kbit", "320kbit"]),
-    },
-    usable: { value: boolText(true) },
-  },
-  {
-    name: {
-      value: productName("yt1d", "https://yt1d.com/en20/youtube-to-mp3"),
-      class: "text-left",
-    },
-    ad: {
-      value: boolText(true, { reverse: true }),
-    },
-    free: { value: boolText(true) },
-    quality: {
-      value: arrayText(["64kbit"]),
-    },
-    usable: { value: boolText(true) },
-  },
-  {
-    name: {
-      value: productName("villamadame", "https://www.villamadame.it/"),
-      class: "text-left",
-    },
-    ad: {
-      value: boolText(true, { reverse: true }),
-    },
-    free: { value: boolText(true) },
-    quality: {
-      value: arrayText(["64kbit", "128kbit", "256kbit", "320kbit"]),
-    },
-    usable: { value: boolText(true) },
-  },
-  {
-    name: {
-      value: productName(
-        "clipto",
-        "https://www.clipto.com/media-downloader/free-youtube-to-mp3-converter"
-      ),
-      class: "text-left",
-    },
-    ad: {
-      value: boolText(false, { reverse: true }),
-    },
-    free: { value: boolText(true) },
-    quality: {
-      value: arrayText(["m4a", "opus", "mp3"]),
-    },
-    usable: { value: boolText(true) },
-  },
-  {
-    name: {
-      value: productName("cnvmp3", "https://cnvmp3.com/v23"),
-      class: "text-left",
-    },
-    ad: {
-      value: boolText(false, { reverse: true }),
-    },
-    free: { value: boolText(true) },
-    quality: {
-      value: arrayText(["64kbit", "128kbit", "256kbit", "320kbit"]),
-    },
-    usable: { value: boolText(true) },
-  },
-  {
-    name: {
-      value: productName("ytmp3", "https://ytmp3.cc/Nnht/"),
-      class: "text-left",
-    },
-    ad: {
-      value: boolText(true, { reverse: true }),
-    },
-    free: { value: boolText(true) },
-    quality: {
-      value: arrayText(["128kbit"]),
-    },
-    usable: { value: boolText(true) },
-  },
-  {
-    name: {
-      value: productName("y2mate", "https://y2mate.nu/en-c3pn/"),
-      class: "text-left",
-    },
-    ad: {
-      value: boolText(false, { reverse: true }),
-    },
-    free: { value: boolText(true) },
-    quality: {
-      value: arrayText(["128kbit"]),
-    },
-    usable: { value: boolText(false) },
-  },
-
-  {
-    name: {
-      value: productName("y2mate", "https://www.y2mate.com/en949"),
-    },
-    ad: {
-      value: boolText(true, { reverse: true }),
-    },
-    free: { value: boolText(true) },
-    quality: {
-      value: arrayText(["128kbit"]),
-    },
-    usable: { value: boolText(false) },
-  },
-  {
-    name: {
-      value: productName("yout", "https://yout.com/"),
-      class: "text-left",
-    },
-    ad: {
-      value: boolText(false, { reverse: true }),
-    },
-    free: { value: boolText(true) },
-    quality: {
-      value: arrayText([
-        "32kbit",
-        "64kbit",
-        "128kbit",
-        "192kbit",
-        "256kbit",
-        "320kbit",
-      ]),
-    },
-    usable: { value: boolText(true) },
-  },
-  {
-    name: {
-      value: productName("youtubemp3", "https://youtubemp3.one/"),
-    },
-    ad: {
-      value: boolText(true, { reverse: true }),
-    },
-    free: { value: boolText(true) },
-    quality: {
-      value: arrayText(["32kbit"]),
-    },
-    usable: { value: boolText(false) },
-  },
-];
+// 从数据文件获取表格列和产品数据
+const tableColumns = getTableColumns(t);
+const products = getProducts(t);
 ---
 
-<Layout title="Quickly Find Good YouTube to MP3 Converters" description="Say goodbye to bad YouTube to MP3 tools! Our website has simple reviews and comparison tables to help you quickly find tools that work, have no ads, and have good sound quality, saving you time.">
+<Layout
+  title="Quickly Find Good YouTube to MP3 Converters"
+  description="Say goodbye to bad YouTube to MP3 tools! Our website has simple reviews and comparison tables to help you quickly find tools that work, have no ads, and have good sound quality, saving you time."
+>
   <div class="container mx-auto px-4">
     <div class="w-full max-w-5xl mx-auto my-6">
       <h1 class="text-3xl font-bold mb-6 text-center">
@@ -325,63 +68,31 @@ const products = [
               <tr class="border-b border-gray-200 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-700">
                 {tableColumns.map((column) => (
                   <td class={`px-6 py-4 ${column.class}`}>
-                    {
-                      product[column.key] ? <Fragment set:html={product[column.key]?.value} /> : '-'
-                    }
-                    
+                    {product[column.key] && (
+                      <div>
+                        <Fragment set:html={product[column.key]?.value} />
+                      </div>
+                    )}
+
+                    {product[column.key] && product[column.key]?.remark && (
+                      <div class="text-gray-500 text-xs">
+                        {product[column.key]?.remark}
+                      </div>
+                    )}
                   </td>
                 ))}
-                {/* <td class="px-6 py-4 font-medium whitespace-nowrap">
-                  <Fragment set:html={product.name} />
-                </td>
-                <td class="px-6 py-4 text-center">
-                  {product.ad.value ? (
-                    <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded">
-                      {t({ en: "Yes", 'zh-cn': "是" })}
-                    </span>
-                  ) : (
-                    <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">
-                      {t({ en: "No", 'zh-cn': "否" })}
-                    </span>
-                  )}
-                </td>
-                <td class="px-6 py-4 text-center">
-                  {product.free.value ? (
-                    <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">
-                      {t({ en: "Yes", 'zh-cn': "是" })}
-                    </span>
-                  ) : (
-                    <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded">
-                      {t({ en: "No", 'zh-cn': "否" })}
-                    </span>
-                  )}
-                </td>
-                <td class="px-6 py-4">
-                  <div class="flex flex-wrap gap-1">
-                    {product.quality.value.map((q) => (
-                      <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">
-                        {q}
-                      </span>
-                    ))}
-                  </div>
-                </td>
-                <td class="px-6 py-4 text-center">
-                  {product.usable.value ? (
-                    <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">
-                      {t({ en: "Yes", 'zh-cn': "是" })}
-                    </span>
-                  ) : (
-                    <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded">
-                      {t({ en: "No", 'zh-cn': "否" })}
-                    </span>
-                  )}
-                </td> */}
               </tr>
             ))
           }
         </tbody>
       </table>
     </div>
+
+
+    <!-- <h2>How to test</h2> -->
+    <!-- https://www.youtube.com/watch?v=vuKXZEz7JGQ -->
+    <!-- https://www.youtube.com/watch?v=ouuPSxE1hK4 -->
+    <!-- https://www.youtube.com/watch?v=VrTVeYm4iIM -->
   </div>
 </Layout>
 
