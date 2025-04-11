@@ -75,7 +75,7 @@ export const testResult = (
 // 获取表格列配置
 export const getTableColumns = (t: (str: string | Multilingual) => string): TableColumn[] => [
   {
-    text: t({ en: "Product Name", "zh-cn": "产品名称" }),
+    text: t({ en: "Status & Product Name", "zh-cn": "状态 & 产品名称" }),
     key: "name",
     class: "text-left",
   },
@@ -95,7 +95,7 @@ export const getTableColumns = (t: (str: string | Multilingual) => string): Tabl
   //   class: "text-center",
   // },
   {
-    text: t({ en: "Quality", "zh-cn": "音质" }),
+    text: t({ en: "Quality(kbps)", "zh-cn": "音质(kbps)" }),
     key: "quality",
     class: "text-left",
   },
@@ -161,7 +161,7 @@ export const getProducts = (t: (str: string | Multilingual) => string): Product[
     },
     {
       name: {
-        value: productName("✅ https://yt8s.com/", "https://yt8s.com/en"),
+        value: productName("✅ https://yt8s.com", "https://yt8s.com/en"),
         class: "text-left",
       },
       ad: {
@@ -210,7 +210,7 @@ export const getProducts = (t: (str: string | Multilingual) => string): Product[
         value: boolText(true, { reverse: false })
       },
       quality: {
-        value: arrayText(["64kbit", "128kbit", "256kbit", "320kbit"]),
+        value: arrayText(["64", "128", "192", "256", "320"]),
       },
       usable: {
         value: boolText(true, { reverse: false })
@@ -219,7 +219,7 @@ export const getProducts = (t: (str: string | Multilingual) => string): Product[
     {
       name: {
         value: productName(
-          "https://www.macelleriamantelli.it",
+          "✅ https://www.macelleriamantelli.it",
           "https://www.macelleriamantelli.it/"
         ),
         class: "text-left",
@@ -235,13 +235,16 @@ export const getProducts = (t: (str: string | Multilingual) => string): Product[
         value: boolText(true, { reverse: false })
       },
       quality: {
-        value: arrayText([], "not selectable"),
+        value: arrayText(["64", "128", "192", "256", "320"]),
       },
       progress: {
-        value: boolText(true, { reverse: false })
+        value: boolText(false, { reverse: false })
       },
       step: {
         value: 4,
+      },
+      testResult: {
+        value: testResult(true, true, true),
       },
       usable: {
         value: boolText(true, { reverse: false })
@@ -249,7 +252,7 @@ export const getProducts = (t: (str: string | Multilingual) => string): Product[
     },
     {
       name: {
-        value: productName("yt1d", "https://yt1d.com/en20/youtube-to-mp3"),
+        value: productName("✅ https://yt1d.com", "https://yt1d.com/en20/youtube-to-mp3"),
         class: "text-left",
       },
       ad: {
@@ -262,7 +265,16 @@ export const getProducts = (t: (str: string | Multilingual) => string): Product[
         value: boolText(true, { reverse: false })
       },
       quality: {
-        value: arrayText(["64kbit"]),
+        value: arrayText([], "not selectable"),
+      },
+      progress: {
+        value: boolText(false, { reverse: false })
+      },
+      step: {
+        value: 5,
+      },
+      testResult: {
+        value: testResult(true, true, true),
       },
       usable: {
         value: boolText(true, { reverse: false })
@@ -283,7 +295,7 @@ export const getProducts = (t: (str: string | Multilingual) => string): Product[
         value: boolText(true, { reverse: false })
       },
       quality: {
-        value: arrayText(["64kbit", "128kbit", "256kbit", "320kbit"]),
+        value: arrayText(["64", "128", "256", "320"]),
       },
       usable: {
         value: boolText(true, { reverse: false })
@@ -328,7 +340,7 @@ export const getProducts = (t: (str: string | Multilingual) => string): Product[
         value: boolText(true, { reverse: false })
       },
       quality: {
-        value: arrayText(["64kbit", "128kbit", "256kbit", "320kbit"]),
+        value: arrayText(["64", "128", "256", "320"]),
       },
       usable: {
         value: boolText(true, { reverse: false })
@@ -349,7 +361,7 @@ export const getProducts = (t: (str: string | Multilingual) => string): Product[
         value: boolText(true, { reverse: false })
       },
       quality: {
-        value: arrayText(["128kbit"]),
+        value: arrayText(["128"]),
       },
       usable: {
         value: boolText(true, { reverse: false })
@@ -370,7 +382,7 @@ export const getProducts = (t: (str: string | Multilingual) => string): Product[
         value: boolText(true, { reverse: false })
       },
       quality: {
-        value: arrayText(["128kbit"]),
+        value: arrayText(["128"]),
       },
       usable: {
         value: boolText(false, { reverse: false })
@@ -390,7 +402,7 @@ export const getProducts = (t: (str: string | Multilingual) => string): Product[
         value: boolText(true, { reverse: false })
       },
       quality: {
-        value: arrayText(["128kbit"]),
+        value: arrayText(["128"]),
       },
       usable: {
         value: boolText(false, { reverse: false })
@@ -412,12 +424,12 @@ export const getProducts = (t: (str: string | Multilingual) => string): Product[
       },
       quality: {
         value: arrayText([
-          "32kbit",
-          "64kbit",
-          "128kbit",
-          "192kbit",
-          "256kbit",
-          "320kbit",
+          "32",
+          "64",
+          "128",
+          "192",
+          "256",
+          "320",
         ]),
       },
       usable: {
@@ -438,7 +450,7 @@ export const getProducts = (t: (str: string | Multilingual) => string): Product[
         value: boolText(true, { reverse: false })
       },
       quality: {
-        value: arrayText(["32kbit"]),
+        value: arrayText(["32"]),
       },
       usable: {
         value: boolText(false, { reverse: false })
