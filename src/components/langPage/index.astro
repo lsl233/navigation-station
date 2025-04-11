@@ -73,12 +73,6 @@ const products = getProducts(t);
                         <Fragment set:html={product[column.key]?.value} />
                       </div>
                     )}
-
-                    {product[column.key] && product[column.key]?.remark && (
-                      <div class="text-gray-500 text-xs">
-                        {product[column.key]?.remark}
-                      </div>
-                    )}
                   </td>
                 ))}
               </tr>

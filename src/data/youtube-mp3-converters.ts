@@ -44,7 +44,7 @@ export const boolText = (value: boolean, options?: BoolTextOptions) => {
   const isPositive = mergedOptions.reverse ? !value : value;
   const textColor = isPositive ? "text-green-800" : "text-red-800";
   const bgColor = isPositive ? "bg-green-100" : "bg-red-100";
-
+  // TODO: remark
   return value
     ? `<span class="${bgColor} ${textColor} text-xs font-medium px-2.5 py-0.5 rounded">${mergedOptions.translations.yes}</span>`
     : `<span class="${bgColor} ${textColor} text-xs font-medium px-2.5 py-0.5 rounded">${mergedOptions.translations.no}</span>`;
@@ -59,7 +59,7 @@ export const arrayText = (value: string[], defaultValue: string = "-") => {
           `<span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">${v}</span>`
       )
       .join(" ")
-    : `<span class="bg-gray-100 text-gray-500 text-xs">${defaultValue}</span>`;
+    : `<span class=" text-gray-500 dark:text-gray-400 text-xs">${defaultValue}</span>`;
 };
 
 export const testResult = (
@@ -67,11 +67,8 @@ export const testResult = (
   medium: boolean,
   long: boolean,
 ) => {
-  return [short, medium, long].map((v) => 
-    boolText(v, { 
-      reverse: true, 
-      translations: { yes: "✅", no: "❌" } 
-    })
+  return [['short', short], ['medium', medium], ['long', long]].map(([label, value]) => 
+    `<span title="${label}">${value ? '✅' : '❌'}</span> `
   ).join(" ");
 };
 
